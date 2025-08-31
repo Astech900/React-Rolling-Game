@@ -1,47 +1,32 @@
 import { useState } from 'react'
-import './RollGame.css'
+import './RollGame.css';
+import {genRandomNumber, sum} from './helper.js'
 
 
 function RollGame() {
 
-  const [roll, setRoll] = useState({ v1: 2, v2: 5, v3: 7 });
-  const [mgs, setMsg] = useState(`let's Roll`);
-  const sumAll = roll.v1 + roll.v2 + roll.v3;
+  const [ticket, setTicket] = useState(genRandomNumber(3));
 
-  let getRoll = () => {
-    const rV1 = Math.floor(Math.random(1) * 10)
-    const rV2 = Math.floor(Math.random(1) * 10)
-    const rV3 = Math.floor(Math.random(1) * 10)
-    const sumOFAll = rV1 + rV2 + rV3
-    console.log(sumOFAll)
+  let isWinning = sum(ticket) === 15
 
-    if (sumOFAll !== 15) {
-      setMsg('Not Equal to 15 Please Retry!')
-      return setRoll((prevRoll) => ({
-        ...prevRoll, v1: rV1, v2: rV2, v3: rV3
-      }))
-    } else {
-      setMsg('Congratulation! You won Jack Pot !')
-      return setRoll((prevRoll) => ({
-        ...prevRoll, v1: rV1, v2: rV2, v3: rV3
-      }))
-    }
-
-
+  let updater = () =>{
+    setTicket(genRandomNumber(3))
   }
+ 
   return (
     <div className='main'>
-      <h3 >{mgs}</h3>
+      <h3 >{isWinning ?'Congratulations, you won!' : 'Retry!'}</h3>
       <div className="rollcontainer">
-        <div className='cont1'>{roll.v1}</div>
-        <div className='cont1'>{roll.v2}</div>
-        <div className='cont1'>{roll.v3}</div>
+        <div className='cont1'>{ticket[0]}</div>
+        <div className='cont1'>{ticket[1]}</div>
+        <div className='cont1'>{ticket[2]}</div>
       </div>
-      <h2> Score {sumAll}  </h2>
-      <button className='rollBtn' onClick={getRoll} >Roll</button>
+      <h2> Score  </h2>
+      <button className='rollBtn' onClick={updater} >Roll</button>
     </div>
   )
-}
+   }
+
 
 
 
