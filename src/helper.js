@@ -1,4 +1,5 @@
 
+//generating random number
  function genRandomNumber(n) {
     let arr = new Array(n);
 
@@ -8,7 +9,7 @@
   return arr;
 }
 
-
+//sum function 
 function sum(arr){
     return arr.reduce((sum, curr )=>(sum + curr), 0)
 }
